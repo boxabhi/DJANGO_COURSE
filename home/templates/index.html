@@ -1,0 +1,38 @@
+{% extends "base.html "%}
+{% block start %}
+
+
+
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+
+<div class="input-group mb-3">
+<label>Name</label>
+<input class="form-control" name="full_name" placeholder="Enter your name">
+</div>
+<br>
+<br>
+<label>Age</label>
+<input  name="age" placeholder="Enter your age">
+<br>
+<br>
+
+<label>Gender</label>
+<select name="gender">
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+
+</select>
+<br>
+<br>
+
+<label>Upload file</label>
+<input type="file" name="upload_file" >
+<br>
+<br>
+
+<button type="submit"> Submit</button>
+</form>
+
+
+{% endblock %}
