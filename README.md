@@ -50,7 +50,7 @@ To get started with the repository, follow these steps:
 
 ## 📁 Repository Structure
 
-    # Complete Codebase : All code discussed in the course, organized by module and lesson.
+    Complete Codebase : All code discussed in the course, organized by module and lesson.
     Project Files : Starter and completed project files for each hands-on project.
     Resources and References **: Additional resources, links, and references to supplement your learning.
 
