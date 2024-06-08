@@ -1,20 +1,32 @@
+import os
+
+import django
+import itertools
+import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'firstproject.settings'
+django.setup()
+import django
+import random
+from faker import Faker
+from home.models import Author, Book
+from datetime import datetime, timedelta
+from django.db.models import Avg, Sum, Min, Max, Count, Q
+from django.db.models import Subquery, OuterRef
 
 
-class Brand(models.Model):
-    brand_name = models.CharField(max_length=100)
-    country = models.CharField(default="IN",max_length=100)
+from django.db.models.functions import ExtractMonth
 
-    def __str__(self):
-        return self.brand_name
+def handle(self, *args, **kwargs):
+        # Annotate each book with the month of its published date
+        books_each_month = Book.objects.filter(
+            author=OuterRef('pk'),
+            published_date__year=2023
+        ).annotate(month=ExtractMonth('published_date')).values('month').distinct()
 
-class Products(models.Model):
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
-    product_name = models.CharField(max_length=100)
+        # Aggregate the months into an array
+        authors = Author.objects.annotate(
+            books_each_month=ArrayAgg(books_each_month.values('month'), distinct=True)
+        )
 
-
-
-brand = Brand.objects.get(id = 2)
-
-Products(product_name = "Macbook", brand = Brand.objects.get(id = 5))
-
-Products.objects.create(product_name = "Soap", brand = brand)
+        for author in authors:
+            print(f"Author: {author.name}, Months with Books Published in 2023: {author.books_each_month}")

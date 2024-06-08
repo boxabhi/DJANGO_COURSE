@@ -1,0 +1,113 @@
+
+1. Total Number of Books
+2. Average, Sum ,Min, Max  Price of All Books
+3. Total Books Written by Each Author
+4. Average Price of Books for Each Author
+5. Total and Average Price of Books for Each Author
+6. Total Number of Books Published in 2023 for Each Author
+7. Most Expensive Book for Each Author
+8. Authors with at Least One Book Priced Over $50
+9. Total Earnings for Each Author
+10. Combining Multiple Aggregations
+
+
+1. Latest Book for Each Author
+2. Total Price of Books Published in 2023 for Each Author
+3. Count of Books Published by Each Author
+4. Average Price of Books for Each Author
+5. Most Expensive Book for Each Author
+6. Authors with at Least One Book Priced Over $50
+7. Total Earnings for Each Author
+8. Average Price of Books Published in 2023 for Each Author
+9. Highest Priced Book for Each Author in 2023
+10. Authors with Books Published in Each Month of 2023
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

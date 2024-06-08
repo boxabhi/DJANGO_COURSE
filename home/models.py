@@ -20,9 +20,14 @@ class Student(models.Model):
 class Author(models.Model):
     author_name = models.CharField(max_length=100)
 
+    def __str__(self) -> str:
+        return self.author_name 
+
 class Book(models.Model):
-    author = models.OneToOneField(Author, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
     book_name = models.CharField(max_length=100)
+    published_date = models.DateField(null=True , blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
 
 
 class Brand(models.Model):
@@ -55,9 +60,6 @@ class Sudent2(models.Model):
     age = models.IntegerField()
     gender = models.CharField(max_length=100, null=True , blank = True)
     upload_file = models.FileField(upload_to="files/" ,null=True , blank = True)
-
-
-
 
 
 
