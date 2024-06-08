@@ -1,4 +1,7 @@
+from typing import Iterable
 from django.db import models
+from home.utils import generateSlug
+
 
 
 class College(models.Model):
@@ -40,7 +43,12 @@ class Brand(models.Model):
 class Products(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True , blank = True)
     product_name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=100, null=True , blank=True)
 
+    def save(self, *args, **kwargs) -> None:
+        if not self.id:
+            self.slug = generateSlug(self.product_name , Products)
+        return super().save(*args, **kwargs)
 
 
 
