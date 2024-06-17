@@ -10,15 +10,45 @@
 <body>
     <div class="container mt-5">
         <form method="get" >
-            <div class="form-group">
-                <input type="text" value="{% if search %}{{search}}{%endif %}" name="search" class="form-control" placeholder="Search..." value="{{ request.GET.q }}">
-            </div>
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <input type="text" value="{% if search %}{{search}}{%endif %}" name="search" class="form-control" placeholder="Search..." value="{{ request.GET.q }}">
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                      <select name="brand" class="form-control">
+                        <option value="">Select</option>
+                        {% for brand in brands %}
+                        <option {% if request.GET.brand == brand.brand %} selected {%endif%}value="{{brand.brand}}">{{brand.brand}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                      <select name="category" class="form-control">
+                        <option value="">Select</option>
 
-            <!-- <div class="form-group">
+                        {% for category in categories %}
+                        <option  {% if request.GET.category == category.category %} selected {%endif%} value="{{category.category}}">{{category.category}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+             
             <div id="price-slider"></div>
             <input type="hidden" name="min_price" id="min-price">
             <input type="hidden" name="max_price" id="max-price">
-            </div> -->
+            </div>
+               
+            </div>
+
+         
             <button type="submit" class="btn btn-primary">Search</button>
        
        
