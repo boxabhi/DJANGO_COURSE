@@ -12,4 +12,8 @@ class Product(models.Model):
     brand = models.CharField(max_length=100, null = True , blank=True)
     sku = models.CharField(max_length=100)
     thumbnail = models.URLField(max_length=1000)
-    #tags = models.ManyToManyField(Tags)
+    tags = models.ManyToManyField(Tags)
+
+
+    def __str__(self) -> str:
+        return self.title

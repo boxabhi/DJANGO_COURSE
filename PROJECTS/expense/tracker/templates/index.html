@@ -2,6 +2,11 @@
 {% block start %}
 
 <h1>Expense Tracker</h1>
+
+{% if request.user.is_authenticated %}
+<a href="/logout/">Logout</a>
+{% endif %}
+
 <div class="container">
     <div class="header">
         <img src="https://i.ibb.co/jfScDTC/budget.png" alt="Expense Tracker" />
