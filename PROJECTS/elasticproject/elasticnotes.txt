@@ -1,0 +1,46 @@
+    
+    
+    result = ProductDocument.search().query('match', title=search)
+    
+
+    result = ProductDocument.search().query('term', title=search)
+    
+    result = ProductDocument.search().query('match', title={
+        'query': search,
+        'fuzziness': 1  # You can also use a specific value like 1 or 2
+    })
+    
+  	  
+    result = ProductDocument.search().query(
+        MultiMatch(query=search, fields=['title', 
+                                         'description', 'category', 'brand', 'sku'])
+    )
+    
+    sort
+        result = ProductDocument.search().query(
+        MultiMatch(query=search, fields=['title', 
+                                         'description', 'category', 'brand', 'sku'])
+    ).sort('_score')
+    
+    
+    
+    Collaspse
+    result = ProductDocument.search().query(
+        MultiMatch(query=search, fields=['title', 
+                                         'description', 'category', 'brand', 'sku'])
+    ).collapse(field =)
+    
+    
+    
+    START END 
+        result = ProductDocument.search().query(
+        MultiMatch(query=search, fields=['title', 
+                                         'description', 'category', 'brand', 'sku'])
+    ).extra(from_= 1 , size= 10)
+        
+        
+           result = ProductDocument.search().query('terms', title=search)
+        
+        
+                                         'description', 'category', 'brand', 'sku'])
+    ).collapse(field =)

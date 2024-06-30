@@ -12,11 +12,12 @@ from django.core.cache import cache
 from django.contrib import messages
 
 User = get_user_model()
-
+from .tasks import add
 
 
 def login_page(request):
-
+    result = (add.delay(4 , 4))
+    print(result)
     if request.method == "POST":
         phone_number = request.POST.get('phone_number')
         if cache.get(phone_number):
