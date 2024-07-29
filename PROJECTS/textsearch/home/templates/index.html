@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <form method="get" >
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <input type="text" value="{% if search %}{{search}}{%endif %}" name="search" class="form-control" placeholder="Search..." value="{{ request.GET.q }}">
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                      <select name="brand" class="form-control">
+                        <option value="">Select</option>
+                        {% for brand in brands %}
+                        <option {% if request.GET.brand == brand.brand %} selected {%endif%}value="{{brand.brand}}">{{brand.brand}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                      <select name="category" class="form-control">
+                        <option value="">Select</option>
+
+                        {% for category in categories %}
+                        <option  {% if request.GET.category == category.category %} selected {%endif%} value="{{category.category}}">{{category.category}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+             
+            <div id="price-slider"></div>
+            <input type="hidden" name="min_price" id="min-price">
+            <input type="hidden" name="max_price" id="max-price">
+            </div>
+               
+            </div>
+
+         
+            <button type="submit" class="btn btn-primary">Search</button>
+       
+       
+        </form>
+        <br>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Brand</th>
+                    <th>SKU</th>
+                    <th>Thumbnail</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in results %}
+                    <tr>
+                        <td>{{ product.title }}</td>
+                        <td>{{ product.description }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>${{ product.price }}</td>
+                        <td>{{ product.brand }}</td>
+                        <td>{{ product.sku }}</td>
+                        <td><img src="{{ product.thumbnail }}" alt="{{ product.title }}" width="50"></td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7">No results found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.js"></script>
+    <script>
+        var priceSlider = document.getElementById('price-slider');
+
+        noUiSlider.create(priceSlider, {
+            start: [0, 1000], // Adjust these values to your desired default range
+            connect: true,
+            range: {
+                'min': 0,
+                'max': 1000 // Adjust this value to your maximum price
+            },
+            tooltips: [true, true]
+        });
+
+        priceSlider.noUiSlider.on('update', function(values, handle) {
+            document.getElementById('min-price').value = values[0];
+            document.getElementById('max-price').value = values[1];
+        });
+
+        // Set the initial values if they exist
+        var minPrice = "{{ request.GET.min_price|default:0 }}";
+        var maxPrice = "{{ request.GET.max_price|default:1000 }}";
+        priceSlider.noUiSlider.set([minPrice, maxPrice]);
+    </script>
+
+</body>
+</html>

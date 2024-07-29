@@ -1,0 +1,14 @@
+
+
+db_table 
+ordering 
+verbose_name 
+verbose_name_plural 
+unique_together 
+index_together 
+abstract 
+permissions 
+constraints = [
+    CheckConstraint(check=Q(age__gte=18), name='age_gte_18')
+]
+proxy = True

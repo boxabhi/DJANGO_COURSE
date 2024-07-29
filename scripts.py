@@ -1,20 +1,43 @@
+import os
+
+import django
+import itertools
+import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'firstproject.settings'
+django.setup()
+import django
+import random
+from faker import Faker
+from home.models import Author, Book
+from datetime import datetime, timedelta
+from django.db.models import Avg, Sum, Min, Max, Count, Q
+from django.db.models import Subquery, OuterRef
+from home.models import *
 
 
-class Brand(models.Model):
-    brand_name = models.CharField(max_length=100)
-    country = models.CharField(default="IN",max_length=100)
+fake = Faker()
 
-    def __str__(self):
-        return self.brand_name
+def createPerson(number):
+    create = [Person(person_name =fake.name() ) for _ in range(number)]
+    Person.objects.bulk_create(create)
 
-class Products(models.Model):
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
-    product_name = models.CharField(max_length=100)
+def deletePerson(number):
 
+    Person.objects.all().delete()
 
 
-brand = Brand.objects.get(id = 2)
+def updatePerson(name):
+    for person in Person.objects.filter(person_name__icontains = name):
+        person.person_name = "Abhijeet GUpta"
+    print(Person.objects.filter(person_name__icontains = name).count())
+    print(Person.objects.filter(person_name__icontains = name).update(person_name="Abhijeet Gupta"))
 
-Products(product_name = "Macbook", brand = Brand.objects.get(id = 5))
 
-Products.objects.create(product_name = "Soap", brand = brand)
+# deletePerson(1000)
+
+# createPerson(10000)
+
+updatePerson("Davis")
+
+
+

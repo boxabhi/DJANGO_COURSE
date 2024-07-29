@@ -1,0 +1,67 @@
+{% extends "base.html "%}
+{% block start %}
+
+
+<div class="container-fluid mt-5">
+
+    <form>
+        <div class="row">
+            <div class="col-6">
+                <input name="search" class="form-control" value="{{search}}" type="text" placeholder="Search"> 
+               
+            </div> 
+            <div class="col-6">
+                <select name="age" class="form-control">
+                    <option > Select</option>
+                    <option value="1"> Between 18 - 20</option>
+                    <option value="2"> Between 20 - 22</option>
+                    <option value="3"> Between 22 - 24</option>
+
+                </select>
+            </div>    
+        </div>
+        <button class="btn btn-success mt-2">Search</button>
+
+</form>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Mobile</th>
+        <th scope="col">Email</th>
+
+        <th scope="col">College</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Age</th>
+        <th scope="col">Bio</th>
+
+
+
+      </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{student.name}}</td>
+        <td>{{student.mobile_number}}</td>
+        <td>{{student.email}}</td>
+
+        <td>{{student.college.college_name}}</td>
+        <td>{{student.gender}}</td>
+        <td>{{student.age}}</td>
+        <td>{{student.student_bio}}</td>
+
+
+
+
+   
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
