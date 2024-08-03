@@ -1,5 +1,5 @@
 """
-URL configuration for expense project.
+URL configuration for delivery project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -15,17 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from django.conf.urls.static import static
-from django.conf import settings
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.urls import path
+from home.views import *
 
 urlpatterns = [
-    path('', include('tracker.urls')),
+    path('', index),
+    path('data/', get_data),
     path('admin/', admin.site.urls),
 ]
-
-
-from django.conf.urls.static import static
-from django.conf import settings
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
