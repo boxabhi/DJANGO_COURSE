@@ -3,10 +3,11 @@ from .script import scrape_imdb_news
 from django.http import JsonResponse
 from .models import News
 from home.tasks import add
+from django.shortcuts import get_object_or_404
 
 
-def run_scraper(request):
-    scrape_imdb_news()
+def run_scraper(request, id):
+    obj = get_object_or_404(News, id)
     return JsonResponse({
         "status" : True,
         "message" : "scraper executed"

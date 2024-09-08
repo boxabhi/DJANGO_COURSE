@@ -1,0 +1,55 @@
+<div class = "container">
+    <div class = "row">
+        <div class = "col-md-2 mt-2">
+              <a class="navbar-brand" href="/">
+                <img style="height: 80px !important;" src="https://t3.ftcdn.net/jpg/02/47/48/00/360_F_247480017_ST4hotATsrcErAja0VzdUsrrVBMIcE4u.jpg"alt = "image of logo" class = "img-fluid "></a>
+        </div>
+
+        <div class = "col-md-7">
+            <div class="input-group mt-3">
+<input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
+<div class="input-group-append">
+
+<button class="btn btn-primary" type="button" id="button-addon2">
+    <i class="fas fa-search"></i>
+</button>
+
+
+</div>
+</div>
+        </div>
+
+
+       
+<div class = "col-md-3 mt-3">
+            <div class = "circle float-right">
+                    <i class="fas fa-shopping-cart text-muted"></i>
+                    <span class="badge badge-danger">0</span>
+            
+            </div>
+
+            {%if not request.user.is_authenticated %}
+            <div class = "circle float-right mr-4">
+                    <i class="fas fa-user text-muted"data-target="#exampleModal" data-toggle="modal"></i>
+                    <span class="badge badge-danger">0</span>
+            
+            </div>
+
+            {% else %}
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Manage
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Order</a></li>
+      <li><a class="dropdown-item" href="#">Account</a></li>
+      <li><a class="dropdown-item" href="{% url 'logout_page'%}">Logout</a></li>
+    </ul>
+  </div>
+{% endif %}
+
+
+        </div>
+    </div>
+</div>
+

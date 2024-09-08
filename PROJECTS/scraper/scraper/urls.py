@@ -19,7 +19,9 @@ from django.urls import path
 from home.views import *
 
 urlpatterns = [
-    path('', index),
+    path('', index, name="agj"),
+    path('contact-my-us-', index, name="agj"),
+
     path('run_scraper/', run_scraper),
     
     path('admin/', admin.site.urls),

@@ -1,0 +1,133 @@
+{
+  "_from": "drift-zoom",
+  "_id": "drift-zoom@1.4.0",
+  "_inBundle": false,
+  "_integrity": "sha512-hmMntkIEqXI+HrbSsgL0i3onAsESXHagEXUU/EiXuD8ksPpQtCy962AA6IEgNWvtnf+IzXUHEBcdopLPOPFoTw==",
+  "_location": "/drift-zoom",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "drift-zoom",
+    "name": "drift-zoom",
+    "escapedName": "drift-zoom",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/drift-zoom/-/drift-zoom-1.4.0.tgz",
+  "_shasum": "5ad459320ae825ee67b38368716a52719f1d0565",
+  "_spec": "drift-zoom",
+  "_where": "/Users/rokaux/Sites/cartzilla",
+  "author": {
+    "name": "imgix"
+  },
+  "browserslist": [
+    "ie 11",
+    "last 2 edge versions",
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 iOS versions",
+    "last 2 Android versions"
+  ],
+  "bugs": {
+    "url": "https://github.com/imgix/drift/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Frederick Fogerty",
+      "email": "frederick.fogerty@gmail.com",
+      "url": "https://github.com/frederickfogerty"
+    },
+    {
+      "name": "Sherwin Heydarbeygi",
+      "email": "sherwin@imgix.com",
+      "url": "https://github.com/sherwinski"
+    }
+  ],
+  "dependencies": {},
+  "deprecated": false,
+  "description": "Easily add \"zoom on hover\" functionality to your site's images. Lightweight, no-dependency JavaScript.",
+  "devDependencies": {
+    "@babel/cli": "7.6.0",
+    "@babel/core": "7.6.0",
+    "@babel/plugin-proposal-class-properties": "7.5.5",
+    "@babel/preset-env": "7.6.0",
+    "babel-eslint": "10.0.3",
+    "babel-loader": "8.0.6",
+    "babel-preset-env": "7.0.0-beta.3",
+    "chai": "4.2.0",
+    "closure-webpack-plugin": "2.0.1",
+    "cross-env": "5.2.1",
+    "cssnano": "4.1.10",
+    "cssnano-preset-advanced": "4.0.7",
+    "eslint": "6.3.0",
+    "eslint-config-google": "0.14.0",
+    "eslint-config-prettier": "6.2.0",
+    "google-closure-compiler-js": "20190819.0.0",
+    "jasmine-core": "3.4.0",
+    "karma": "4.3.0",
+    "karma-chrome-launcher": "3.1.0",
+    "karma-firefox-launcher": "1.2.0",
+    "karma-jasmine": "2.0.1",
+    "karma-webpack": "4.0.2",
+    "npm-run-all": "4.1.5",
+    "postcss-cli": "6.1.3",
+    "prettier": "1.18.2",
+    "rimraf": "3.0.0",
+    "standard-version": "7.0.0",
+    "webpack": "4.39.3",
+    "webpack-cli": "3.3.8",
+    "webpack-closure-compiler": "2.1.6",
+    "yargs": "14.0.0"
+  },
+  "files": [
+    "lib",
+    "es",
+    "dist",
+    "src"
+  ],
+  "homepage": "https://github.com/imgix/drift",
+  "jsnext:main": "es/Drift.js",
+  "keywords": [
+    "javascript",
+    "zoom",
+    "hover"
+  ],
+  "license": "BSD-2",
+  "main": "lib/Drift.js",
+  "module": "es/Drift.js",
+  "name": "drift-zoom",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imgix/drift.git"
+  },
+  "scripts": {
+    "build": "npm run clean && run-p build:css:** build:js:**",
+    "build:css:dev": "mkdir -p dist && cp src/css/drift-basic.css dist/",
+    "build:css:prod": "mkdir -p dist && postcss src/css/drift-basic.css > dist/drift-basic.min.css",
+    "build:js:dist:prod": "webpack --env build && cp dist/Drift.min.js dist/Drift.js",
+    "build:js:lib:commonjs": "cross-env BABEL_ENV=commonjs babel src/js --out-dir lib --source-maps",
+    "build:js:lib:es": "cross-env BABEL_ENV=es babel src/js --out-dir es --source-maps",
+    "build:serial": "npm run clean && run-s build:css:** build:js:**",
+    "build:watch": "webpack --progress --colors --watch --env dev",
+    "clean": "rimraf lib es dist",
+    "dev": "npm run build:watch",
+    "format": "prettier --write \"{src,test}/**/*.js\"",
+    "format:check": "prettier --list-different \"{src,test}/**/*.js\"",
+    "lint": "eslint \"{src,test}/**/*.js\"",
+    "release": "npm run build && git add dist src/js/Drift.js && standard-version -a",
+    "start": "npm run dev",
+    "test": "npm run test:local",
+    "test:ci": "karma start config/karma/karma-ci.config.js --singleRun",
+    "test:local": "karma start config/karma/karma-local.config.js --singleRun",
+    "test:watch": "karma start config/karma/karma-local.config.js"
+  },
+  "version": "1.4.0"
+}
