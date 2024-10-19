@@ -1,0 +1,37 @@
+
+<!-- Modal -->
+<div class="modal fade {% if message.tags == 'debug' %}show{%endif%} " id="exampleModal" 
+tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" 
+aria-hidden="false">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header  bg-primary">
+        <h5 class="modal-title text-light" id="exampleModalLabel">Sign In</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <form method="post" action="{% url 'login_page' %}">
+        {% csrf_token %}
+    <div class="form-group">
+    <!--<label for="exampleInputEmail1">Email address</label>-->
+    <input type="text" name="phone_number" 
+    class="form-control mb-3" id="exampleInputEmail1" 
+    aria-describedby="emailHelp" placeholder="Enter phone">
+    <div class="form-group">
+    <!--<label for="exampleInputPassword1">Password</label>-->
+    <input type="password" name="password" class="form-control"
+     id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+    </form> 
+      </div>
+      <div class = "signup">
+        <p class = "float-right text-muted">If not registered,
+          <a href="{% url 'registration' %}" class="text-muted">register now!</a></p>
+      </div>
+      
+    </div>
+    </div>
+    </div>

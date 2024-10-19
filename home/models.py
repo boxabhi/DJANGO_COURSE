@@ -15,7 +15,6 @@ class Student(models.Model):
     mobile_number = models.CharField(max_length=12)
     email = models.EmailField()
     gender = models.CharField(max_length=10 ,choices=gender_choices , default = "Male")
-    age = models.IntegerField(null = True , blank=True)
     student_bio = models.TextField()
 
 
@@ -63,16 +62,33 @@ class Products(models.Model):
         return super().save(*args, **kwargs)
 
 
+class SkillManager(models.Manager):
+
+    def get_queryset(self) -> models.QuerySet:
+        return super().get_queryset().filter(is_deleted =False)
+
 
 class Skills(models.Model):
     skill_name = models.CharField(max_length = 100)
+    is_deleted = models.BooleanField(default=False)
+
+    objects = SkillManager()
+    new_manager = models.Manager()
+
     
     def __str__(self):
         return self.skill_name
+    
+
+
+
+
 
 class Person(models.Model):
     person_name = models.CharField(max_length=100)
     skill = models.ManyToManyField(Skills)
+
+
 
 
 from django.db.models import CheckConstraint, Q
@@ -84,16 +100,10 @@ class Sudent2(models.Model):
 
     class Meta:
         constraints = [
-            CheckConstraint(check=Q(age__gte=18), name='age_gte_18')
+    
         ]
 
-class CollegeStudent(Sudent2):
 
-    class Meta:
-        proxy = True
-        constraints = [
-            CheckConstraint(check=Q(age__gte=25), name='age_gte_25')
-        ]
 
 
 

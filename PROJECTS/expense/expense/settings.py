@@ -107,6 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+import os
 
 
 # Internationalization
@@ -119,7 +120,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
+import os
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -131,41 +132,3 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-import os
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "verbose": {
-            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
-            "style": "{",
-        },
-        "simple": {
-            "format": "{levelname} {message}",
-            "style": "{",
-        },
-    },
-    "filters": {
-        "require_debug_true": {
-            "()": "django.utils.log.RequireDebugTrue",
-        },
-    },
-    "handlers": {
-        "console": {
-            "level": "INFO",
-            "filters": ["require_debug_true"],
-            "class": "logging.StreamHandler",
-            "formatter": "simple",
-        },
-    
-    },
-    "loggers": {
-        "django": {
-            "handlers": ["console"],
-            "propagate": True,
-        },
-       
-    
-    },
-}

@@ -1,0 +1,39 @@
+.circle{border-radius: 50%;height:50px;width:50px;border:1px solid #ccc;
+    padding:0.7rem;text-align: center;}
+    .badge{position: absolute;top:0px; right:10px;}
+    hr{margin-bottom: 0rem !important;}
+    #nav li a{color:#000;}
+    #nav li{padding:0 10px;}
+    #nav li a:hover{color:#ccc;}
+    #hr{margin-top: 0rem !important;}
+    #car{border-radius: 12px;}
+    a:hover{text-decoration: none;}
+    #list-ul li a {color:#000;}
+    #list-ul .dropright .dropdown-toggle::after{margin-left: 160px !important;}
+    .card-body{padding:0 23px;}
+    .card h4{margin-top: -15px;}
+    .but{border-radius: 10px; padding:7px 15px;}
+    .col-md-3 .card:hover{box-shadow: 0 4px 15px rgb(153 153 153 / 30%)}
+     footer .col-md-3 ul li{list-style: none;}
+     footer .col-md-3 ul a{color:#000;}
+     h6{font-weight: bold}
+    .ok{background:#f8f9fa; padding-bottom: 20px;margin-top: 30px;}
+    #cool{height:50px;width:100px;margin-left: 200px;}
+    .color{background-color:lightblue;padding-top: 70px;padding-bottom: 70px;}
+    .form{background-color: #fff;border:1px solid #fff;padding:20px;}
+    #circlee{position: relative;}
+    #login-badge{position: absolute;top:-5px;right:0px;}
+    
+    .mytabs{margin-top:3rem;}
+    .mytabs .nav-link {
+    display: block;
+    padding: .5rem 9rem;border-bottom: 2px solid #000 !important;
+    font-weight: 700;
+    }
+    .mytabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    
+    border-color: transparent !important;
+    color:#ff6600;
+    ;}
+    .wrap-text{padding: 1rem;}
+    

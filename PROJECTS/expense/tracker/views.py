@@ -6,8 +6,6 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-import logging
-logger = logging.getLogger(__name__)
 
 
 def registration(request):
@@ -41,15 +39,7 @@ def registration(request):
 
 
 def login_page(request):
-    logger.debug("This is a debug message")
 
-    logger.info("This is a info message")
-    logger.warning("This is a warning message")
-    logger.error("This is a error message")
-    logger.critical("This is a critical message")
-
-
-    
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')

@@ -62,7 +62,7 @@ def search_page(request):
              Q(student_bio__icontains = search))
 
 
-
+    skills = Skills.objects.filter()
     if age:
         print(age, type(age))
         if age == "1":

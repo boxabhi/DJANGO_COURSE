@@ -1,0 +1,109 @@
+{% extends "utils/base.html" %}
+{% block start %}
+
+<div class = "container">
+    <div class="row">
+      <div class="col-md-5">
+        <img  style="height: 500px;" src="/media/{{product.product.getFirstImage}}" 
+        class="img-fluid p-5">
+      </div>
+      <div class="col-md-7">
+        <h4 class="pt-5">{{product.product.item_name}}</h4>
+        <p>{{product.product.category.name}}</p>
+        <div class="rating">
+        <span class="text-warning"><i class="fas fa-star"></i></span>
+        <span class="text-warning"><i class="fas fa-star"></i></span>
+        <span class="text-warning"><i class="fas fa-star"></i></span>
+      </div>
+      <h4 class="pt-4 pb-3">₹ {{product.vendor_selling_price}}</h4>
+      <p class="text-muted">
+        {{product.product.product_description}}
+      </p>
+      <table class="table table-borderless">
+   
+    <tbody>
+      <tr>
+        <th scope="row">Brand</th>
+        <td>{{product.product.brand.name}}</td>
+      </tr>
+      <tr>
+        <th scope="row">SKU</th>
+        <td>{{product.product.product_sku}}</td>
+      </tr>
+      <tr>
+        <th scope="row">HSN</th>
+        <td>{{product.product.hsn_code}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+  <div class="row pt-3">
+    <div class="col-md-3">
+      <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fas fa-plus"></i></span>
+    </div>
+    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+    <div class="input-group-append">
+      <span class="input-group-text"><i class="fas fa-minus"></i></span>
+    </div>
+  </div>
+    </div>
+
+    </div>
+
+   
+    <h3>Select Product Variants:</h3>
+    {% for variant, option in product_variants.items %}
+        <div>
+            <label>
+                <input type="checkbox" 
+                {% if variant == product.product.product_sku %} 
+                checked disabled {% endif %} 
+                name="selected_variants" value="{{ variant }}"
+                onclick="updateUrl('{{ variant }}')"
+                >
+                {{ option }}
+            </label>
+        </div>
+    {% endfor %}
+
+
+    
+  </div>
+      </div>
+      </div>
+      </div>
+      
+     
+      <script>
+        window.onload = function() {
+            // Scroll down the page by a certain amount (e.g., 500px) when the page loads
+            window.scrollTo({
+                top: 200, // Adjust the value according to how much you want to scroll down
+                behavior: 'smooth' // This makes the scroll smooth
+            });
+        };
+    </script>
+      <script>
+        function updateUrl(productSku) {
+            // Get the current URL
+            const currentUrl = new URL(window.location.href);
+            
+            // Set or update the 'product_sku' parameter in the URL
+            currentUrl.searchParams.set('product_sku', productSku);
+            
+            // Reload the page with the updated URL
+            window.location.href = currentUrl.href;
+        }
+    </script>
+
+{% if messages %}
+{% for message in messages %}
+<h1>{{message}} {{message.tags}}</h1>
+{% endfor %}
+
+{% endif %}
+
+
+{% endblock %}

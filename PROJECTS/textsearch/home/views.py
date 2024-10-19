@@ -25,7 +25,8 @@ def index(request):
             similarity = TrigramSimilarity('title', search) 
             + TrigramSimilarity('description', search) + TrigramSimilarity('category', search)
             + TrigramSimilarity('brand', search)
-        ).filter(Q(rank__gte =0.3)| Q(similarity__gte = 0.3)).distinct().order_by('-rank', '-similarity')
+        ).filter(Q(rank__gte =0.3)| Q(similarity__gte = 0.3)).distinct().order_by(
+            '-rank', '-similarity')
     else:
         results = Product.objects.all()
 

@@ -1,0 +1,45 @@
+{% extends "utils/base.html" %}
+{% block start %}
+
+<div class="container mx-auto col-6 shadow p-5 mt-5">
+    {% include "utils/alert.html"%}
+    <form method="post">
+        {% csrf_token %}
+ <div class="form-group">
+    
+
+
+    <input type="text" name="first_name" class="form-control mb-3" id="exampleInputEmail1" 
+    aria-describedby="emailHelp" placeholder="Enter First Name">
+    <input type="text" name="last_name" class="form-control mb-3" id="exampleInputEmail1" 
+    aria-describedby="emailHelp" placeholder="Enter Last Name">
+ <!--<label for="exampleInputEmail1">Email address</label>-->
+ <input type="text" name="phone_number" class="form-control mb-3" id="exampleInputEmail1" 
+ aria-describedby="emailHelp" placeholder="Enter phone number">
+
+ <input type="email" name="email" class="form-control mb-3" id="exampleInputEmail1" 
+ aria-describedby="emailHelp" placeholder="Enter Email">
+
+ <div class="form-group">
+ <!--<label for="exampleInputPassword1">Password</label>-->
+ <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+ </div>
+ <button type="submit" class="btn btn-primary mt-2">Submit</button>
+
+</form>
+
+
+   </div>
+   <div class = "signup">
+     <p class = "float-right text-muted">If not registered,
+        <i class="fas fa-user text-muted"data-target="#exampleModal" data-toggle="modal"></i>  Login Now!</p>
+       
+   </div>
+   
+ </div>
+ </div>
+ </div>
+
+
+ {% include "utils/registration_modal.html" %}
+{% endblock %}

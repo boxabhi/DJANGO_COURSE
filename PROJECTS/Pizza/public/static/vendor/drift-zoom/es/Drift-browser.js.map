@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/js/Drift-browser.js"],"names":["Drift","window"],"mappings":"AAAA;AAEA,OAAOA,KAAP,MAAkB,SAAlB;AAEAC,MAAM,CAAC,OAAD,CAAN,GAAkBD,KAAlB","sourcesContent":["// This file is used for the standalone browser build\n\nimport Drift from \"./Drift\";\n\nwindow[\"Drift\"] = Drift;\n"],"file":"Drift-browser.js"}
