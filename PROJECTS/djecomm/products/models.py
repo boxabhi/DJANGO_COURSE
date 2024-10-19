@@ -11,7 +11,8 @@ class Category(BaseModel):
         return self.name
 
 class SubCategory(BaseModel):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="sub_categories")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, 
+                                 related_name="sub_categories")
     name = models.CharField(max_length=100)
     def __str__(self) -> str:
         return self.name
@@ -32,12 +33,22 @@ class Products(BaseModel):
     hsn_code = models.CharField(max_length=1000, null=True, blank=True)
     parent_product = models.ForeignKey("Products", related_name="variant_products", on_delete=models.CASCADE, null=True , blank=True)
     maximum_retail_price = models.FloatField()
+
     def __str__(self) -> str:
-        return self.item_name
+        return self.product_sku
+    
+    def getFirstImage(self):
+        if self.product_images.first():
+            return self.product_images.first().image
+
+        return "https://static.vecteezy.com/system/resources/thumbnails/022/014/063/small/missing-picture-page-for-website-design-or-mobile-app-design-no-image-available-icon-vector.jpg"
     
 class VariantOptions(BaseModel):
     variant_name = models.CharField(max_length=100)
     option_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.variant_name + " " + self.option_name
 
 
 class ProductVariant(BaseModel):
@@ -55,3 +66,5 @@ class VendorProducts(BaseModel):
     vendor_selling_price = models.FloatField()
     dealer_price = models.FloatField()
     is_active = models.BooleanField(default=True)
+
+

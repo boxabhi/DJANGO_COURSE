@@ -12,10 +12,8 @@ admin.site.register(BrandName)
 class ProductAdmin(admin.ModelAdmin):
     list_display = [
         "category",
-        "sub_category",
-        "brand",
         "item_name",
-        "product_description",
+        "parent_product",
         "product_sku",
         "hsn_code",
         "parent_product",
@@ -31,9 +29,16 @@ class ProductAdmin(admin.ModelAdmin):
     ]
 
 
+class VendorProductsAdmin(admin.ModelAdmin):
+    search_fields = ['product__item_name', 'shopkeeper__bmp_id', 'product__product_sku']
+    
+
+class ProductVariantAdmin(admin.ModelAdmin):
+    search_fields = ['product__item_name',  'product__product_sku']
+
 
 admin.site.register(Products,ProductAdmin)
 admin.site.register(VariantOptions)
-admin.site.register(ProductVariant)
+admin.site.register(ProductVariant,ProductVariantAdmin)
 admin.site.register(ProductImages)
-admin.site.register(VendorProducts)
+admin.site.register(VendorProducts,VendorProductsAdmin)

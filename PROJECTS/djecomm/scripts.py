@@ -60,6 +60,8 @@ def upload_products_from_excel(file_path):
                 if row['Variation type'] == 'Variant':
                     parent_product = Products.objects.get(product_sku = row['Parent SKU'])
                     variant_options = []
+                    parent_variant_options = []
+
                     variant_theme = row['Variation_theme']
                     variants = variant_theme.split("+")
                     for variant in variants:
@@ -69,6 +71,14 @@ def upload_products_from_excel(file_path):
                             option_name = option_name
                         )
                         variant_options.append(variant_option)
+
+                    for variant in variants:
+                        option_name = generate_random_option(variant)
+                        variant_option , _ = VariantOptions.objects.get_or_create(
+                            variant_name = variant,
+                            option_name = option_name
+                        )
+                        parent_variant_options.append(variant_option) 
 
                     variant_product = Products.objects.create(
                         category = category,
@@ -81,15 +91,30 @@ def upload_products_from_excel(file_path):
                         parent_product = parent_product,
                         maximum_retail_price = random.randint(1000, 99999))
                     
+                    parent_product_variant = ProductVariant.objects.create(product = parent_product)
+                    parent_product_variant.variant_option.add(*parent_variant_options)
                     product_variant = ProductVariant.objects.create(product = variant_product)
                     product_variant.variant_option.add(*variant_options)
 
     except Exception as e:
         print(e)
 
+import random
 
+def createVendorProducts():
+    vendor = Shopkeeper.objects.first()
+    for product in Products.objects.all():
+        price = random.randint(100, 10000)
+        if VendorProducts.objects.filter(product = product, shopkeeper = vendor):
+            continue
+        VendorProducts.objects.create(
+            shopkeeper = vendor,
+            product = product,
+            vendor_selling_price = price,
+            dealer_price  = price - random.randint(10, 99),
+        
+        )
 
-# upload_products_from_excel('product.xlsx')
 
 
 from PIL import Image
@@ -160,3 +185,6 @@ def uploadImages(path):
         
 
 uploadImages("D:\\DJANGO_COURSE\\firstproject\\PROJECTS\\djecomm\\images")
+
+createVendorProducts()
+# upload_products_from_excel('product.xlsx')
