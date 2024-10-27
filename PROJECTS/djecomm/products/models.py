@@ -66,5 +66,6 @@ class VendorProducts(BaseModel):
     vendor_selling_price = models.FloatField()
     dealer_price = models.FloatField()
     is_active = models.BooleanField(default=True)
+    delivery_fee = models.FloatField(default=0)
 
 

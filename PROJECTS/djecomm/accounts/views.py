@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from .models import Customer
 
 # Create your views here.
 
@@ -18,14 +19,14 @@ def registration(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        user_obj = User.objects.filter(
+        user_obj = Customer.objects.filter(
            username = username)
 
         if user_obj.exists():
             messages.error(request, 'Error: Username or Email already exists')
             return redirect('/accounts/registration/')
         
-        user_obj = User.objects.create(
+        user_obj = Customer.objects.create(
            first_name = first_name,
             last_name = last_name,
             username = username,
@@ -44,7 +45,7 @@ def login_page(request):
     if request.method == 'POST':
         username = request.POST.get('phone_number')
         password = request.POST.get('password')
-        user_obj = User.objects.filter(
+        user_obj = Customer.objects.filter(
           username = username
             )
         if not user_obj.exists():

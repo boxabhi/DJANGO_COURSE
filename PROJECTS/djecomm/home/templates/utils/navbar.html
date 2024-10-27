@@ -21,12 +21,21 @@
 
 
        
+       
 <div class = "col-md-3 mt-3">
+
+
+ 
+  <a href="/order/cart/">
             <div class = "circle float-right">
                     <i class="fas fa-shopping-cart text-muted"></i>
-                    <span class="badge badge-danger">0</span>
-            
-            </div>
+                 
+                    <span class="badge badge-danger">
+                      {{request.user.customer.getCartItemCount}}</span>
+                    </div>
+                  </a>
+       
+          
 
             {%if not request.user.is_authenticated %}
             <div class = "circle float-right mr-4">

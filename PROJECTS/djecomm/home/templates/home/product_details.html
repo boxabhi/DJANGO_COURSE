@@ -41,32 +41,42 @@
     <div class="col-md-3">
       <div class="input-group mb-3">
     <div class="input-group-prepend">
-      <span class="input-group-text"><i class="fas fa-plus"></i></span>
+      <a href="/order/add-to-cart/?product_id={{product.id}}" class="input-group-text">
+        <i class="fas fa-plus"></i>
+      </a>
     </div>
     <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
     <div class="input-group-append">
-      <span class="input-group-text"><i class="fas fa-minus"></i></span>
+      <a href="/order/remove-cart-item/?product_id={{product.id}}" class="input-group-text">
+        <i class="fas fa-minus"></i>
+      </a>
     </div>
+    
   </div>
     </div>
 
     </div>
 
-   
-    <h3>Select Product Variants:</h3>
+
+    <h5> Select Product Variants</h5>
     {% for variant, option in product_variants.items %}
-        <div>
-            <label>
-                <input type="checkbox" 
-                {% if variant == product.product.product_sku %} 
-                checked disabled {% endif %} 
-                name="selected_variants" value="{{ variant }}"
-                onclick="updateUrl('{{ variant }}')"
-                >
-                {{ option }}
-            </label>
-        </div>
+    <div>
+      <label>
+        <input type="checkbox"
+        name="selected_variants" value="{{variant}}"
+        {% if variant == product.product.product_sku %}
+        checked
+        disabled
+        {% endif %}
+        onclick="updateUrl('{{variant}}')"
+        >
+        {{option}}
+      </label>
+    </div>
+
     {% endfor %}
+
+  
 
 
     
@@ -75,28 +85,22 @@
       </div>
       </div>
       
-     
+
+
       <script>
-        window.onload = function() {
-            // Scroll down the page by a certain amount (e.g., 500px) when the page loads
-            window.scrollTo({
-                top: 200, // Adjust the value according to how much you want to scroll down
-                behavior: 'smooth' // This makes the scroll smooth
-            });
-        };
-    </script>
-      <script>
-        function updateUrl(productSku) {
-            // Get the current URL
-            const currentUrl = new URL(window.location.href);
-            
-            // Set or update the 'product_sku' parameter in the URL
-            currentUrl.searchParams.set('product_sku', productSku);
-            
-            // Reload the page with the updated URL
-            window.location.href = currentUrl.href;
+        window.onload = function(){
+          window.scrollTo({
+            top : 250,
+            behavior : 'smooth'
+          })
         }
-    </script>
+        function updateUrl(sku){
+          const currentUrl = new URL(window.location.href)
+          currentUrl.searchParams.set('product_sku', sku)
+          window.location.href = currentUrl.href
+        }
+      </script>
+     
 
 {% if messages %}
 {% for message in messages %}

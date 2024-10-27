@@ -1,0 +1,39 @@
+{%extends "base.html"%}
+{% block start %}
+<div class="content-wrapper">
+    <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Add Customer Details</h4>
+          <p class="card-description"> Basic form layout </p>
+          <form class="forms-sample">
+            <div class="form-group">
+              <label for="exampleInputUsername1">First Name</label>
+              <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputUsername1">Last Name</label>
+              <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Phone number</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputPassword1">Address</label>
+              <textarea class="form-control" id="exampleInputPassword1" 
+             ></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+            <button class="btn btn-light">Cancel</button>
+          </form>
+        </div>
+      </div>
+</div>
+
+    {% endblock %}
