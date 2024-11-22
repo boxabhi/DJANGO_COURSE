@@ -184,7 +184,31 @@ def uploadImages(path):
             #return False
         
 
-uploadImages("D:\\DJANGO_COURSE\\firstproject\\PROJECTS\\djecomm\\images")
+# uploadImages("D:\\DJANGO_COURSE\\firstproject\\PROJECTS\\djecomm\\images")
 
-createVendorProducts()
+# createVendorProducts()
 # upload_products_from_excel('product.xlsx')
+
+import razorpay
+from django.conf import settings
+class RazorPayPayment:
+
+    def __init__(self, currency="INR"):
+        self.currency = currency
+        self.client = razorpay.Client(auth=(settings.RAZORPAY_KEY, settings.RAZORPAY_SECRET))
+
+    def processPayment(self, amount, receipt):
+        payment = self.client.order.create({
+            "amount": amount,
+            "currency": self.currency,
+            "receipt": receipt,
+            "partial_payment":False,
+            "notes": {}
+        })
+        print(payment)
+
+
+payment = RazorPayPayment("INR")
+payment.processPayment(435* 100,"Abhijeet")
+
+

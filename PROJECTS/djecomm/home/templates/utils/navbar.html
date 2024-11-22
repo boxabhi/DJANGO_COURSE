@@ -25,9 +25,10 @@
 <div class = "col-md-3 mt-3">
 
 
- 
+
+
   <a href="/order/cart/">
-            <div class = "circle float-right">
+            <div class ="circle float-right"onclick="window.location.href='/order/cart/';">
                     <i class="fas fa-shopping-cart text-muted"></i>
                  
                     <span class="badge badge-danger">
@@ -37,7 +38,7 @@
        
           
 
-            {%if not request.user.is_authenticated %}
+            {% if not request.user.is_authenticated %}
             <div class = "circle float-right mr-4">
                     <i class="fas fa-user text-muted"data-target="#exampleModal" data-toggle="modal"></i>
                     <span class="badge badge-danger">0</span>

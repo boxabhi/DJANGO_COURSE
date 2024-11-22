@@ -7,3 +7,4 @@ class Student(models.Model):
     dob = models.DateField()
     email = models.EmailField()
     phone_number = models.CharField(max_length=100)
+    

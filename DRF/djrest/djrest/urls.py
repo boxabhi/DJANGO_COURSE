@@ -22,6 +22,7 @@ urlpatterns = [
     path('api/', index , ),
     path('api/student/', student),
     path('api/create_record/', create_record, ),
+    path('api/update_record/',update_record),
     path('api/get_records/', get_records ,),
     path('api/delete_record/',delete_record),
     path('admin/', admin.site.urls),
