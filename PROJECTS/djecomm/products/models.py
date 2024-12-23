@@ -39,10 +39,18 @@ class Products(BaseModel):
     
     def getFirstImage(self):
         if self.product_images.first():
-            return self.product_images.first().image
+            return  self.product_images.first().image
 
         return "https://static.vecteezy.com/system/resources/thumbnails/022/014/063/small/missing-picture-page-for-website-design-or-mobile-app-design-no-image-available-icon-vector.jpg"
     
+    
+    def getPdfFirstImage(self):
+        if self.product_images.first():
+            return f"http://127.0.0.1:8000/media/{self.product_images.first().image}" 
+
+        return "https://static.vecteezy.com/system/resources/thumbnails/022/014/063/small/missing-picture-page-for-website-design-or-mobile-app-design-no-image-available-icon-vector.jpg"
+    
+
 class VariantOptions(BaseModel):
     variant_name = models.CharField(max_length=100)
     option_name = models.CharField(max_length=100)
@@ -67,5 +75,12 @@ class VendorProducts(BaseModel):
     dealer_price = models.FloatField()
     is_active = models.BooleanField(default=True)
     delivery_fee = models.FloatField(default=0)
+
+
+    def get_product_details(self):
+        return {
+            "product_name"  : self.product.item_name,
+            "image" : self.getFirstImage()
+        } 
 
 

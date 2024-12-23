@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
+    <div style="max-width: 800px; margin: 20px auto; border: 1px solid #ddd; padding: 20px;">
+        <h1 style="text-align: center; color: #333;">Invoice</h1>
+        
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+            <div>
+                <h3 style="margin: 0; color: #555;">Seller Information</h3>
+                <p style="margin: 5px 0;">Shopstore Ltd.<br>1234 Market Street<br>City, State, 56789</p>
+            </div>
+            <div>
+                <h3 style="margin: 0; color: #555;">Buyer Information</h3>
+                <p style="margin: 5px 0;">{{customer.name}}<br>5678 Elm Street<br>City,
+                     State, {{customer.phone_number}}
+                     <br> <b>Order id : {{order.order_id}}</b>
+                    </p>
+            </div>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f9f9f9;">#</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f9f9f9;">Product Image</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f9f9f9;">Product Name</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f9f9f9;">Quantity</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f9f9f9;">Price</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f9f9f9;">Total</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in order_items %}
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{forloop.counter}}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">
+                        <img src="data:image/jpeg;base64,{{item.image}}" height="70" width="70">
+                    </td>
+
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{item.product}}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{item.quantity}}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{item.price}}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{item.total_price}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div style="display: flex; justify-content: flex-end;">
+            <table style="border: 1px solid #ddd; border-collapse: collapse; width: 300px;">
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Subtotal</td>
+                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right;">{{order.total}}</td>
+                </tr>
+            
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-weight: bold;">Total</td>
+                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right
+                    ; font-weight: bold;">{{order.total}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <p style="text-align: center; margin-top: 20px; color: #777;">Thank you for your purchase!</p>
+    </div>
+</body>
+</html>

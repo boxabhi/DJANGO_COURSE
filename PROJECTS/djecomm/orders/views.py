@@ -15,7 +15,8 @@ def get_cart(request):
     cart = None
     payment_info = {}
     try:
-        cart = Cart.objects.get(customer = request.user.customer)
+        
+        cart = Cart.objects.get(customer = request.user.customer, is_paid = False)
         amount = cart.getCartTotal()
         receipt = cart.customer.username
         payment = RazorPayPayment("INR")
@@ -25,6 +26,7 @@ def get_cart(request):
         print(payment_info)
     except Exception as e:
         print(e)
+
     return render( request,'cart.html', context = {'cart' : cart, 'payment_info' : payment_info})
 
 
@@ -84,6 +86,7 @@ def payment_success(request):
         cart.payment_id = razorpay_payment_id
         cart.payment_signature = razorpay_signature
         cart.is_paid = True
+        cart.convertToOrder()
         cart.save()
         return render(request, "success.html")
     except Exception as e:
