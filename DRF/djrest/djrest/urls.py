@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from home.views import *
 from rest_framework.routers import DefaultRouter
 
@@ -24,6 +24,7 @@ router = DefaultRouter()
 router.register(r'product/v2', ProductViewSet, basename='products')
 
 urlpatterns = [
+    path("prometheus/", include("django_prometheus.urls")),
     path('api/', index , ),
     path('api/student/', student),
     path('api/create_record/', create_record, ),
@@ -38,6 +39,8 @@ urlpatterns = [
 
     path('api/product/',ProductListCreate.as_view()),
 
+    path('api/register/',RegisterAPI.as_view()),
+    path('api/login/',LoginAPI.as_view()),
     
     path('admin/', admin.site.urls),
 ]

@@ -8,7 +8,60 @@ from rest_framework.generics import GenericAPIView
 from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
+
+
+
+class RegisterAPI(APIView):
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                "status" :True,
+                "message" : "user registered succesfully",
+                "data" : {}
+            })
+        return Response({
+                "status" :False,
+                "message" : "keys missing",
+                "data" : serializer.errors
+                
+            })
+
+
+class LoginAPI(APIView):
+    def post(self , request):
+        serializer = LoginSerializer(data=request.data)
+        if serializer.is_valid():
+            user = authenticate(
+                username = serializer.data['username'],
+                password = serializer.data['password'])
+            if user is None:
+                return Response({
+                     "status" :False,
+                    "message" : "invalid credentials",
+                    "data" : {}
+            }, status = 401)
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({
+                "status" :True,
+                "message" : "user token",
+                "data" : {
+                    "token" : token.key
+                }
+            })
+        return Response({
+                "status" :False,
+                "message" : "keys missing",
+                "data" : serializer.errors
+                
+            })
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -43,6 +96,12 @@ class ProductViewSet(viewsets.ModelViewSet):
 class ProductListCreate(generics.ListCreateAPIView,generics.DestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+    def list(self, request, *args, **kwargs):
+        print(request.user)
+        return super().list(request, *args, **kwargs)
 
 
 

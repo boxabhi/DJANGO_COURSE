@@ -1,0 +1,2 @@
+docker build -t djrest:latest .
+docker compose up 
