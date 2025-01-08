@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'home',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'products',
-    'home'
+    'orders'
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,9 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+RAZORPAY_KEY = "rzp_test_E4PHOVfd4i9Bzh"
+RAZORPAY_SECRET = "YyesuE1Xu5zYgrVMtYXPTNX7"
+
+

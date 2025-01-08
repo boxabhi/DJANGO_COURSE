@@ -12,23 +12,14 @@ def home(request):
     }
     return render(request, 'home/home.html', context)
 
-from django.shortcuts import get_object_or_404
-from django.db.models import Prefetch
+
 
 def product_detail(request, id):
-    
     product = VendorProducts.objects.get(id = id)
     if request.GET.get('product_sku'):
         product = VendorProducts.objects.get(product__product_sku = request.GET.get('product_sku'))
-
-
-
-    # Collect variant options for the main product and its variants
     product_variants = []
-
-    # Add the variants of the parent product
     if product.product.product_variants.exists():
-        print("Hi")
         parent_variants = product.product.product_variants.prefetch_related('variant_option')
         for variant in parent_variants:
             product_variants.extend(
@@ -39,7 +30,6 @@ def product_detail(request, id):
                 }
                 for option in variant.variant_option.all()
             )
-    
 
     variant_products = []
     if product.product.parent_product:
@@ -59,20 +49,20 @@ def product_detail(request, id):
             for option in product_variant.variant_option.all()
         )
     result = {}
-    sorted_variants = sorted(product_variants, key=lambda x: x['product_sku'])
+    sorted_variants = sorted(product_variants, key=lambda x:x['product_sku'])
     for variant in sorted_variants:
         product_sku = variant['product_sku']
         variant_string = f"{variant['variant_name']}: {variant['option_name']}"
         
-        # If the product_sku is already in the result dict, store the unique variant strings
         if product_sku in result:
-            result[product_sku].add(variant_string)  # Add to the set to ensure uniqueness
+            result[product_sku].add(variant_string)  
         else:
-            # If the product_sku is not in the result dict, initialize with a set
+
             result[product_sku] = {variant_string}
 
     for product_sku in result:
         result[product_sku] = " ".join(result[product_sku])
+
     context = {
         'product': product,
         'product_variants': result,

@@ -1,0 +1,154 @@
+{% extends "utils/base.html" %}
+{% block start %}
+{% load cart_extras %}
+
+<div class="container py-3">
+    <h3>Your Cart</h3>
+   
+    {% if cart.cart_items.all.count %}
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+        <!-- single cart item  -->
+        <hr />
+        
+        {% for item in cart.cart_items.all%}
+        <div class="cart-item py-2">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+              <div class="d-flex justify-content-between mb-3">
+                <img
+                 style="height: 100px;"
+                  class="cart-image d-block"
+                  src="/media/{{item.product.product.getFirstImage}}"
+                  alt=""
+                />
+                <div class="mx-3">
+                  <h6>{{item.product.product.item_name}}</h6>
+                  <p>{{item.product.product.brand}}</p>
+                  <small>Rs. {{item.product.vendor_selling_price}} (Per Item)</small>
+                  <h5>Rs. {{item.getCartItemTotal}}</h5>
+                  <div class="row pt-3">
+                    <div class="col-md-2">
+                      <div class="input-group mb-3">
+                        <div class="input-group-append">
+                      <a href="/order/add-to-cart/?product_id={{item.product.id}}" class="input-group-text">
+                        <i class="fas fa-plus"></i>
+                      </a>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group mb-5">
+                    <div class="input-group-append">
+                      <a href="/order/remove-cart-item/?product_id={{item.product.id}}" class="input-group-text">
+                        <i class="fas fa-minus"></i>
+                      </a>
+                    </div>
+                    
+                  </div>
+                    </div>
+                
+                    </div>
+            
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+              <div class="d-flex justify-content-between">
+                <div>
+
+                    <button class="btn btn-success btn-sm">Quantity : {{item.quantity}}</button>
+                 
+                </div>
+                <div>
+                    <a 
+                    type="button"
+                    class="btn-close"
+                    aria-label="Close"
+                    href="/order/remove-cart-item/?product_id={{item.product.id}}&quantity=0" class="input-group-text">
+                    <i class="fas fa-trash-alt"></i>
+                      </a>
+                 
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+       
+        <hr />
+        {% endfor %}
+
+    
+        <!-- ./ single cart item end  -->
+      </div>
+      <div class="col-12 col-sm-12 col-md-8 col-lg-4">
+        <div class="bg-light rounded-3 p-4 sticky-top">
+          <h6 class="mb-4">Order Summary</h6>
+          <div class="d-flex justify-content-between align-items-center">
+            <div>Subtotal</div>
+            <div><strong>Rs. {{cart.getCartTotal|substract:cart.calculateDeliveryFee}} </strong></div>
+          </div>
+          <hr />
+          <div class="d-flex justify-content-between align-items-center">
+            <div>Delivery Charge</div>
+            <div><strong>Rs. {{cart.calculateDeliveryFee}}</strong></div>
+          </div>
+          <hr />
+          <div class="d-flex justify-content-between align-items-center">
+            <div>Total</div>
+            <div><strong>Rs.{{cart.getCartTotal}}</strong></div>
+          </div>
+      
+          <button class="btn btn-primary w-100 mt-4" id="rzp-button1">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="text-center">
+
+      <img src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-illustration-download-in-svg-png-gif-file-formats--shopping-ecommerce-simple-error-state-pack-user-interface-illustrations-6024626.png?">
+  </div>
+
+  
+  {% endif %}
+
+</div>
+{% if messages %}
+{% for message in messages %}
+<h1>{{message}} {{message.tags}}</h1>
+{% endfor %}
+
+{% endif %}
+
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_E4PHOVfd4i9Bzh", // Enter the Key ID generated from the Dashboard
+    "amount": "{{cart.getCartTotal}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Ecommerce", //your business name
+    "description": "Paying for Cart",
+    "order_id": "{{payment_info.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "callback_url": "http://127.0.0.1:8000/order/success/?order_id={{payment_info.id}}",
+    "theme": {
+        "color": "#3399cc"
+    },
+    "handler": function (response){
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature)
+    },
+};
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+
+{% endblock %}

@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from core import views
 urlpatterns = [
+    path('api/products/', views.product_list, name='product_list'),
+    path('api/products/<int:product_id>/', views.get_product_details, name='product_detail'),
+    path('api/submit-feedback/', views.submit_feedback, name='submit_feedback'),
     path('admin/', admin.site.urls),
 ]

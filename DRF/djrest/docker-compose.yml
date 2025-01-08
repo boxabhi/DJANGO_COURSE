@@ -1,0 +1,34 @@
+
+
+services:
+  django:
+    image: djrest # Replace with your Django image or build from Dockerfile
+    container_name: django
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=djrest.settings
+    depends_on:
+      - prometheus
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    restart: always
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    restart: always
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
