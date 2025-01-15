@@ -2,7 +2,7 @@
 
 services:
   django:
-    image: djrest # Replace with your Django image or build from Dockerfile
+    image : djrest
     container_name: django
     volumes:
       - .:/app
@@ -12,7 +12,8 @@ services:
       - DJANGO_SETTINGS_MODULE=djrest.settings
     depends_on:
       - prometheus
-
+      - elasticsearch
+  
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -29,6 +30,27 @@ services:
       - "3000:3000"
     depends_on:
       - prometheus
+
     restart: always
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
+
+  elasticsearch:
+      image: docker.elastic.co/elasticsearch/elasticsearch:8.10.1
+      container_name: elasticsearch
+      environment:
+        - discovery.type=single-node
+        - bootstrap.memory_lock=true
+        - xpack.security.enabled=false  # Disable security for local development
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      ulimits:
+        memlock:
+          soft: -1
+          hard: -1
+      volumes:
+        - es_data:/usr/share/elasticsearch/data
+      ports:
+        - "9200:9200"
+volumes:
+  es_data:
+    driver: local

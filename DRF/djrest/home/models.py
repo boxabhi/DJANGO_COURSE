@@ -1,6 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+
+
+class UserExtended(models.Model):
+    user = models.OneToOneField(User, related_name='extended' , on_delete=models.CASCADE)
+    is_vip = models.BooleanField(default=False)
+    def __str__(self):
+        return self.user.username
 
 class Student(models.Model):
     student_id = models.CharField(max_length=100,null=True , blank=True)
@@ -60,11 +68,12 @@ def generateSlug():
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
-    product_slug = models.SlugField(unique=True, default=generateSlug)
+    product_slug = models.SlugField(default=generateSlug)
     description = models.TextField()
     price = models.FloatField()
     in_stock = models.BooleanField(default=True)
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    
 
     class Meta:
         indexes = [
@@ -74,4 +83,22 @@ class Product(models.Model):
 
 
 
+
+
+class File(models.Model):
+    user = models.ForeignKey(User , on_delete=models.CASCADE)
+    file = models.FileField(upload_to="files")
+
+
+class Person(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    age = models.IntegerField()
+    email = models.EmailField()
+
+
+
+class DeleteRequest(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    is_done = models.BooleanField(default=False)
 
