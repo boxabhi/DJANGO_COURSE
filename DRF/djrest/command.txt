@@ -1,2 +1,3 @@
 docker build -t djrest:latest .
 docker compose up 
+docker exec -it django /bin/bash

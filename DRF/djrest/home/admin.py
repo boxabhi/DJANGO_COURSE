@@ -9,3 +9,9 @@ admin.site.register(Author)
 admin.site.register(Product)
 admin.site.register(Publisher)
 
+
+admin.site.register(UserExtended)
+
+
+admin.site.register(Person)
+admin.site.register(DeleteRequest)

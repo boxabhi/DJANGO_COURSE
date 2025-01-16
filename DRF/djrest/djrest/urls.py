@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from home.views import *
+from products.views import *
 from rest_framework.routers import DefaultRouter
 
 
@@ -24,7 +25,14 @@ router = DefaultRouter()
 router.register(r'product/v2', ProductViewSet, basename='products')
 
 urlpatterns = [
-    path("prometheus/", include("django_prometheus.urls")),
+    #path("prometheus/", include("django_prometheus.urls")),
+    path('api/elastic/product/',ProductElasticAPI.as_view()),
+    path('product/', index_product),
+
+    path('', index),
+    path('upload/', upload_file),
+    path('delete/', delete_request),
+    path('api/author/',AuthorAPI.as_view()),
     path('api/', index , ),
     path('api/student/', student),
     path('api/create_record/', create_record, ),

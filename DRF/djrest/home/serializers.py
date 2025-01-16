@@ -213,3 +213,11 @@ class CreateBookSeriallizer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = '__all__'
+
+
+
+
+class FileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = File
+        fields =  '__all__'

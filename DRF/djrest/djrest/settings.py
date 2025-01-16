@@ -39,8 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-     'rest_framework.authtoken',
-     'django_prometheus',
+    'rest_framework.authtoken',
+    'django_crontab',
+    'products',
+
+    'django_elasticsearch_dsl',
+    'django_elasticsearch_dsl_drf',
+
+    # 'django_prometheus',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +145,44 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #         'utils.custom_render.CustomeJSONRendered',
 #     )
 # }
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_PAGINATION_CLASS': 'utils.paginate.StandardResultsSetPagination'
+# }
+
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.ScopedRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'product': '10/day',
+        'another_scope': '10/day'
+    }
+}
+
+
+
+
+
+
+CRONJOBS = [
+    ('*/1 * * * *', 'home.cron.deleteRecords')
+]
+
+
+ELASTICSEARCH_HOST  ={
+    "default": {
+        "hosts": "http://elasticsearch:9200",
+        "verify_certs":False,
+    }
+}
+
+ELASTICSEARCH_DSL = {
+    "default": {
+        "hosts": "http://elasticsearch:9200",
+        "verify_certs":False,
+    }
+}
