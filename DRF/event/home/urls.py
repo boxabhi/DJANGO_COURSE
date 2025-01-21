@@ -12,6 +12,9 @@ router.register('booking', views.BookViewSet, basename='booking')
 
 
 urlpatterns = [
+    path('', views.post_list, name='post_list'),
+    path('<int:post_id>/', views.post_detail, name='post_detail'),
+    path('add_comment/', views.add_comment, name='add_comment'),
     path('register/', views.ResgiserAPI.as_view()),
     path('login/', views.LoginAPI.as_view()),
     path('', include(router.urls)),

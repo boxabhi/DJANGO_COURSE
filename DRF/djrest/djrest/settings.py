@@ -169,7 +169,7 @@ REST_FRAMEWORK = {
 
 
 CRONJOBS = [
-    ('*/1 * * * *', 'home.cron.deleteRecords')
+    ('*/15 * * * *', 'home.cron.deleteRecords')
 ]
 
 

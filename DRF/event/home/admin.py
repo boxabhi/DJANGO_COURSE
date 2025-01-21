@@ -5,3 +5,6 @@ from .models import *
 admin.site.register(Event)
 admin.site.register(Ticket)
 admin.site.register(Booking)
+
+admin.site.register(Post)
+admin.site.register(Comment)

@@ -32,45 +32,28 @@ class Student(models.Model):
     last_name = models.CharField(max_length=255)
     age = models.IntegerField()
 
-data = [
-    {
-       "first_name" :  "Akash",
-        "last_name" :  "Singh",
-        "age" : 23
-    },{
-        "first_name" :  "Rahul",
-        "last_name" :  "Singh",
-        "age" : 23
-    },
-    {
-        "first_name" :  "Rohit",
-        "last_name" :  "Singh",
-        "age" : 23
-    },{
-        "first_name" :  "Raj",
-        "last_name" :  "Mishra",
-        "age" : 45
-    }
-]
-for d in data:
-    Student.objects.create(**d)
 
-search = "Rohit Singh"
-student = Student.objects.filter(
-    Q(first_name__icontains=search) | Q(last_name__icontains=search))
 
-search = "Rohit Signh"
-search = search.split()
-["Rohit"]
-student = Student.objects.filter(
-    Q(first_name__icontains=search[0]) & 
-    Q(last_name__icontains=search[1]))
+class Post(models.Model):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-student = Student.objects.filter(
-    first_name__icontains=search[0],
-    last_name__icontains=search[1])
+    def __str__(self):
+        return self.title
 
-student = Student.objects.filter(
-    Q(first_name__search="Rohit Singh") |
-    Q(last_name__search=search))
 
+class Comment(models.Model):
+    content = models.TextField()
+    parent = models.ForeignKey(
+        'self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies'
+    )
+    post = models.ForeignKey(
+        Post, null=True, blank=True, on_delete=models.CASCADE, related_name='comments'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.content[:30]

@@ -1,0 +1,11 @@
+<!-- templates/comments/comment.html -->
+<div class="comment-box mb-3">
+    <p><strong>Comment:</strong> {{ comment.content }}</p>
+    <div class="comment-form">
+        <textarea id="reply-content-{{ comment.id }}" class="form-control mb-2" rows="2" placeholder="Write a reply..."></textarea>
+        <button class="btn btn-secondary btn-sm reply-button" onclick="addComment({{ comment.id }}, {{ comment.post.id }})">Reply</button>
+    </div>
+    {% for reply in comment.replies.all %}
+        {% include 'comments/comment.html' with comment=reply %}
+    {% endfor %}
+</div>

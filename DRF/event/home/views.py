@@ -14,11 +14,9 @@ from rest_framework.decorators import action
 
 from rest_framework.exceptions import MethodNotAllowed
 from django.db.models import Q
-
-#username
-#password
-#email
-
+from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404
+from .models import Post, Comment
 
 class ResgiserAPI(APIView):
     def post(self, request):
@@ -135,3 +133,29 @@ class BookViewSet(viewsets.ModelViewSet):
             "message" : "Booking not created",
             "data" : serializer.errors
         })
+    
+# comments/views.py
+
+def post_list(request):
+    posts = Post.objects.all().order_by('-created_at')
+    return render(request, 'comments/post_list.html', {'posts': posts})
+
+
+def post_detail(request, post_id):
+    print(post_id)
+    post = get_object_or_404(Post, id=post_id)
+    comments = Comment.objects.filter(post=post, parent=None).order_by('-created_at')
+    return render(request, 'comments/post_detail.html', {'post': post, 'comments': comments})
+
+
+def add_comment(request):
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        parent_id = request.POST.get('parent_id')
+        post_id = request.POST.get('post_id')
+        
+        parent = get_object_or_404(Comment, id=parent_id) if parent_id else None
+        post = get_object_or_404(Post, id=post_id)
+        
+        comment = Comment.objects.create(content=content, parent=parent, post=post)
+        return JsonResponse({'id': comment.id, 'content': comment.content, 'parent_id': parent_id, 'post_id': post_id})

@@ -1,9 +1,8 @@
 import os
-import csv
 import django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "djrest.settings")
 django.setup()
-
+import csv
 from products.models import Product  
 import random
 
@@ -40,6 +39,5 @@ def load_data_from_csv(file_path):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-if __name__ == "__main__":
-    csv_file_path = "MOCK_DATA.csv"  
-    load_data_from_csv(csv_file_path)
+
+Product.objects.all()
