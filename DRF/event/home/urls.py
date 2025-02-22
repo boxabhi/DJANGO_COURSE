@@ -2,6 +2,8 @@
 from django.urls import path, include
 from . import views
 from rest_framework.routers import DefaultRouter
+from debug_toolbar.toolbar import debug_toolbar_urls
+
 
 router = DefaultRouter()
 router.register('private/event', views.PrivateEventViewSet, basename='private-event')
@@ -19,4 +21,4 @@ urlpatterns = [
     path('login/', views.LoginAPI.as_view()),
     path('', include(router.urls)),
 
-]
+]+ debug_toolbar_urls()

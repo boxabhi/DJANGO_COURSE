@@ -135,10 +135,16 @@ class BookViewSet(viewsets.ModelViewSet):
         })
     
 # comments/views.py
-
+from .models import *
 def post_list(request):
-    posts = Post.objects.all().order_by('-created_at')
-    return render(request, 'comments/post_list.html', {'posts': posts})
+    students = Student.objects.all().select_related('department').prefetch_related('skills')
+    #print(students)
+    for student in students:
+        print(student.skills.all())
+        print(student.department.name)
+
+   
+
 
 
 def post_detail(request, post_id):

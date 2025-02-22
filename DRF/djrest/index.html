@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <form>
+        <input id="name" data="name" placeholder="Enter name" onchange="saveToLocalStorage()" type="text">
+
+
+        <button>Submit</button>
+
+    </form>
+
+    <script>
+        function saveToLocalStorage(){
+            var name = document.getElementById('name')
+            localStorage.setItem('name', name.value)
+        }
+
+        if(localStorage.getItem('name')){
+            document.getElementById('name').value = localStorage.getItem('name')
+        }
+
+    </script>
+    
+</body>
+</html>

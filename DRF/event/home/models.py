@@ -57,3 +57,23 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content[:30]
+    
+
+
+class Department(models.Model):
+    name = models.CharField(max_length=255)
+    
+class SkillName(models.Model):
+    skill_name = models.CharField(max_length=255)
+
+class Project(models.Model):
+    name = models.CharField(max_length=255)
+
+    #skills = models.ManyToManyField(SkillName)
+class Student(models.Model):
+    name = models.CharField(max_length=255)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+
+class StudentSkill(models.Model):
+    student = models.ForeignKey(Student, related_name="skills", on_delete=models.CASCADE)
+    skill = models.CharField(max_length=100)

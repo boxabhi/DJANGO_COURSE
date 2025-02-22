@@ -11,7 +11,6 @@ def index_product(request):
 
 class ProductElasticAPI(APIView):
     def get(self, request):
-        print("HELLOOO")
         search = request.GET.get('search')
         search = ProductsDocument.search().query(
             'multi_match', query=search, 

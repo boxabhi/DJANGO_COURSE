@@ -21,7 +21,7 @@
         <h2 class="mt-5">Comments</h2>
         <div id="comments-container" class="mt-3">
             {% for comment in comments %}
-                {% include 'comments/comment.html' with comment=comment %}
+                {% include 'comment.html' with comment=comment %}
             {% endfor %}
         </div>
 
